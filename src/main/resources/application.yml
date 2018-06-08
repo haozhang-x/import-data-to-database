@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: produce
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    username: maximo
+    password: maximo
+
+---
+spring:
+  profiles: produce
+  datasource:
+    url: jdbc:oracle:thin:@10.10.11.172:1521:orcl
+
+---
+spring:
+  profiles: local
+  datasource:
+    url: jdbc:oracle:thin:@10.211.55.3:1521:orcl
+
