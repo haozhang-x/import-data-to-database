@@ -26,6 +26,9 @@ public class Inventory {
      * 订购单位
      */
     private String orderunit;
+
+
+
     private String shrinkageacc;
     private String sstock;
     private String vendor;
@@ -39,7 +42,7 @@ public class Inventory {
      * 发放单位
      */
     private String issueunit;
-    private Date lastissuedate;
+    private Date lastissuedate=new Date();
     private String orgid = "CNE";
 
     /**

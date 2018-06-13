@@ -1,6 +1,6 @@
 package cn.cloudx.importdata.parse;
 
-import cn.cloudx.importdata.ImportUserDataToDataBase;
+import cn.cloudx.importdata.tools.user.ImportUserDataToDataBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

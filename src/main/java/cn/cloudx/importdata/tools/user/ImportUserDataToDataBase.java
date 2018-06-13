@@ -1,4 +1,4 @@
-package cn.cloudx.importdata;
+package cn.cloudx.importdata.tools.user;
 
 import cn.cloudx.importdata.constant.ExcelTypeConstant;
 import cn.cloudx.importdata.entity.user.*;

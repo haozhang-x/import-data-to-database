@@ -20,7 +20,7 @@ public class Item {
     private String itemnum;
     private String description;
     private Integer rotating = 0;
-    private String lottype;
+    private String lottype="无批次";
     private Integer capitalized = 0;
     private Integer outside = 0;
     private Integer sparepartautoadd = 0;

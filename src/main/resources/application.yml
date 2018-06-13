@@ -1,10 +1,14 @@
 spring:
   profiles:
-    active: local
+    active: dev
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
     username: maximo
     password: maximo
+  jpa:
+    show-sql: false
+
+
 
 ---
 spring:
@@ -16,5 +20,5 @@ spring:
 spring:
   profiles: local
   datasource:
-    url: jdbc:oracle:thin:@centos-local:1521:orcl
+    url: jdbc:oracle:thin:@centos-linux:1521:orcl
 

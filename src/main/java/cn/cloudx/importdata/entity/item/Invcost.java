@@ -19,12 +19,12 @@ public class Invcost {
     private String itemnum;
     private String location="W10001";
     private String conditioncode;
-    private String condrate;
+    private Integer condrate=100;
     private String itemsetid = "ITEMSET";
     private String siteid;
-    private String stdcost;
-    private String avgcost;
-    private String lastcost;
+    private Integer stdcost=0;
+    private Integer avgcost=0;
+    private Integer lastcost=0;
     private String glaccount;
     private String controlacc;
     private String shrinkageacc;

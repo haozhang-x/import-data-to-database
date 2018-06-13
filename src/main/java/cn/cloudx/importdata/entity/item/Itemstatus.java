@@ -8,11 +8,11 @@ import java.util.Date;
 
 @Entity
 @Data
-@SequenceGenerator(name = "itemstatus",sequenceName = "itemstatus")
+@SequenceGenerator(name = "itemstatus",sequenceName = "itemstatusseq")
 public class Itemstatus {
 
     @Id
-    @GeneratedValue(strategy =GenerationType.SEQUENCE,generator ="itemstatus" )
+    //@GeneratedValue(strategy =GenerationType.AUTO,generator ="itemstatus" )
     private Integer itemstatusid;
     private String itemnum;
     private String itemsetid = "ITEMSET";

@@ -11,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Data
-@SequenceGenerator(name = "itemorginfoid", sequenceName = "itemorginfo", allocationSize = 1)
+@SequenceGenerator(name = "itemorginfoid", sequenceName = "itemorginfoseq", allocationSize = 1)
 public class Itemorginfo {
 
     @Id
@@ -34,7 +34,7 @@ public class Itemorginfo {
     private String status = "活动";
     private Date statusdate = new Date();
     private String category = "库存";
-    private String taxexempt;
+    private Integer taxexempt=0;
     private String receipttolerance;
 
 }

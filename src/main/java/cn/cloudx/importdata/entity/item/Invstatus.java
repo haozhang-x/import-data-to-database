@@ -6,13 +6,16 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * @author zhang
+ */
 @Entity
 @Data
-@SequenceGenerator(name = "INVSTATUSSEQ", sequenceName = "INVSTATUSSEQ", allocationSize = 1)
 public class Invstatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INVSTATUSSEQ")
+    @SequenceGenerator(name = "invstatus", sequenceName = "invstatusseq", allocationSize = 1)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invstatus")
     private Integer invstatusid;
     private String itemnum;
     private String itemsetid = "ITEMSET";

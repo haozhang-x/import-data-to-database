@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author zhanghao
  * @date 2018/06/13
  */
-public interface InvBalances extends JpaRepository<Invbalances,Integer> {
+public interface InvBalancesRepository extends JpaRepository<Invbalances,Integer> {
 }
