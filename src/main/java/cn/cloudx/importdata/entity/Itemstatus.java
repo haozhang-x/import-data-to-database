@@ -13,7 +13,7 @@ public class Itemstatus {
 
     @Id
     @GeneratedValue(strategy =GenerationType.SEQUENCE,generator ="itemstatus" )
-    private String itemstatusid;
+    private Integer itemstatusid;
     private String itemnum;
     private String itemsetid = "ITEMSET";
     private String status = "活动";

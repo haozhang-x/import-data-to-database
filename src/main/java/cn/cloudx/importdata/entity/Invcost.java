@@ -15,9 +15,9 @@ public class Invcost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invcostid")
-    private String invcostid;
+    private Integer invcostid;
     private String itemnum;
-    private String location;
+    private String location="W10001";
     private String conditioncode;
     private String condrate;
     private String itemsetid = "ITEMSET";

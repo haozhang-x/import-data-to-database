@@ -16,11 +16,11 @@ public class Itemorginfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "itemorginfoid")
-    private String itemorginfoid;
+    private Integer itemorginfoid;
 
     private String itemnum;
-    private String itemsetid="ITEMSET";
-    private String orgid="CNE";
+    private String itemsetid = "ITEMSET";
+    private String orgid = "CNE";
     private String hazardid;
     private String toolrate;
     private String glaccount;
@@ -31,9 +31,9 @@ public class Itemorginfo {
     private String tax4Code;
     private String tax5Code;
     private String vendor;
-    private String status="活动";
-    private Date statusdate=new Date();
-    private String category="库存";
+    private String status = "活动";
+    private Date statusdate = new Date();
+    private String category = "库存";
     private String taxexempt;
     private String receipttolerance;
 

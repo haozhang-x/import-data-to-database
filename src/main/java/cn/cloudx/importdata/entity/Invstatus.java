@@ -12,15 +12,22 @@ import java.util.Date;
 public class Invstatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "INVSTATUSSEQ")
-    private String invstatusid;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "INVSTATUSSEQ")
+    private Integer invstatusid;
     private String itemnum;
     private String itemsetid = "ITEMSET";
-    private String location;
+    /**
+     * 库房
+     */
+    private String location = "W10001";
+
+    /**
+     * 地点
+     */
     private String siteid;
     private String orgid = "CNE";
     private String status = "活动";
-    private Date changedate;
+    private Date changedate = new Date();
     private String changeby = "MAXADMIN";
     private String memo;
 

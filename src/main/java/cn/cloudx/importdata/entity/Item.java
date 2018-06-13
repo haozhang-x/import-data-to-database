@@ -16,7 +16,7 @@ import java.util.Date;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "itemid")
-    private String itemid;
+    private Integer itemid;
     private String itemnum;
     private String description;
     private Integer rotating = 0;
@@ -34,7 +34,7 @@ public class Item {
     private String in26;
     private String in27;
     private String sendersysid;
-    private String itemsetid;
+    private String itemsetid="ITEMSET";
     /**
      * 订购单位
      */
@@ -111,9 +111,6 @@ public class Item {
     private String mark;
     private Integer changxie = 0;
     private Integer cIsdc = 0;
-
-    //fixme
-
     private Integer inventoryItemId;
     private String uomCode;
     private String uomName;
