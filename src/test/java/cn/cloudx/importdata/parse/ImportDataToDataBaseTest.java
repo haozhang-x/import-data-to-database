@@ -1,5 +1,6 @@
 package cn.cloudx.importdata.parse;
 
+import cn.cloudx.importdata.ImportUserDataToDataBase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.io.IOException;
 @RunWith(SpringRunner.class)
 public class ImportDataToDataBaseTest {
     @Autowired
-    private ImportDataToDataBase importDataToDataBase;
+    private ImportUserDataToDataBase importDataToDataBase;
 
     @Test
     public void importUserToMaximo() throws IOException {

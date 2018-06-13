@@ -1,6 +1,7 @@
 package cn.cloudx.importdata.repository;
 
-import cn.cloudx.importdata.entity.Email;
+import cn.cloudx.importdata.entity.user.Email;
+import cn.cloudx.importdata.repository.user.EmailRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

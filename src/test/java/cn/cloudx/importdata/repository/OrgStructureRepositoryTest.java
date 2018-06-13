@@ -1,6 +1,7 @@
 package cn.cloudx.importdata.repository;
 
-import cn.cloudx.importdata.entity.OrgStructure;
+import cn.cloudx.importdata.entity.user.OrgStructure;
+import cn.cloudx.importdata.repository.user.OrgStructureRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
