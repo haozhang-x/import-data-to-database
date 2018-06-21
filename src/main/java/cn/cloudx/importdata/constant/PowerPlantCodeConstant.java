@@ -8,6 +8,7 @@ import lombok.Getter;
  * @author zhanghao
  * @date 2018/06/13
  */
+@Deprecated
 @Getter
 public enum PowerPlantCodeConstant {
     ;

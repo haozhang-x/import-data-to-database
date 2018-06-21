@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +21,19 @@ public class ImportItemToDataBaseTest {
     private ImportItemToDataBase importItemToDataBase;
 
     @Test
-    public void startImport() {
-        importItemToDataBase.startImport();
+    public void startItemImport() {
+        importItemToDataBase.startItemImport();
+    }
+
+    @Commit
+    @Test
+    public void startToolsItemImport() {
+        deleteAll();
+        importItemToDataBase.startToolsItemImport();
+    }
+
+    @Test
+    public void deleteAll() {
+        importItemToDataBase.deleteAll();
     }
 }

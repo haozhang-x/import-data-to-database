@@ -7,6 +7,12 @@ spring:
     password: maximo
   jpa:
     show-sql: false
+server:
+  port: 9999
+logging:
+  level:
+    root: info
+
 
 
 

@@ -12,7 +12,7 @@ import java.util.Date;
 public class Itemstatus {
 
     @Id
-    //@GeneratedValue(strategy =GenerationType.AUTO,generator ="itemstatus" )
+//    @GeneratedValue(strategy =GenerationType.AUTO,generator ="itemstatus" )
     private Integer itemstatusid;
     private String itemnum;
     private String itemsetid = "ITEMSET";

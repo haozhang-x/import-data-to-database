@@ -28,7 +28,6 @@ public class Inventory {
     private String orderunit;
 
 
-
     private String shrinkageacc;
     private String sstock;
     private String vendor;
@@ -42,7 +41,7 @@ public class Inventory {
      * 发放单位
      */
     private String issueunit;
-    private Date lastissuedate=new Date();
+    private Date lastissuedate = new Date();
     private String orgid = "CNE";
 
     /**
@@ -74,6 +73,7 @@ public class Inventory {
     private Integer orderqty = 1;
     private String sendersysid;
 
+    private Integer sReorder = 1;
 
     private String storeloc;
     private String storelocsiteid;

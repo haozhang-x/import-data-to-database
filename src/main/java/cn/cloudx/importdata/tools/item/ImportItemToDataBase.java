@@ -1,11 +1,13 @@
 package cn.cloudx.importdata.tools.item;
 
 import cn.cloudx.importdata.constant.ExcelTypeConstant;
+import cn.cloudx.importdata.constant.ItemTypeConstant;
 import cn.cloudx.importdata.entity.item.*;
 import cn.cloudx.importdata.repository.item.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
@@ -23,7 +25,7 @@ import static cn.cloudx.importdata.tools.parse.ParseExcel.loadImport;
  * @author zhanghao
  * @date 2018/06/13
  */
-@Component
+@Service
 @Slf4j
 public class ImportItemToDataBase {
 
@@ -52,7 +54,7 @@ public class ImportItemToDataBase {
 
 
     @Autowired
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
 
     /**
@@ -65,7 +67,9 @@ public class ImportItemToDataBase {
      * @param siteId      地点
      */
 
-    private void importItem(String itemNum, String description, String sModelNum, String orderUnit, String issueUnit, String location, String siteId) {
+    private int itemStatus = 1000;
+
+    private void importItem(String itemNum, String description, String sModelNum, String orderUnit, String issueUnit, String location, String siteId, String ItemType) {
 
 
         //设置项目
@@ -75,6 +79,11 @@ public class ImportItemToDataBase {
         item.setSModelnum(sModelNum);
         item.setOrderunit(orderUnit);
         item.setIssueunit(issueUnit);
+
+        if (ItemType != null) {
+            item.setItemtype(ItemType);
+        }
+
         //保存项目
         Item save = itemRepository.save(item);
         log.info("item{},{}导入成功", save.getItemnum(), save.getDescription());
@@ -83,9 +92,10 @@ public class ImportItemToDataBase {
         //设置项目状态
         Itemstatus itemstatus = new Itemstatus();
         itemstatus.setItemnum(itemNum);
-        itemstatus.setItemstatusid(Integer.parseInt(itemNum));
+        itemstatus.setItemstatusid(itemStatus++);
         //保存项目状态
-        itemStatusRepository.saveAndFlush(itemstatus);
+        itemStatusRepository.save(itemstatus);
+
 
         //设置库存状态
         Optional<Invstatus> optionalInvstatus = invStatusRepository.findByItemnum(itemNum);
@@ -93,11 +103,8 @@ public class ImportItemToDataBase {
             Invstatus invstatus = new Invstatus();
             invstatus.setItemnum(itemNum);
             invstatus.setSiteid(siteId);
-            invstatus.setInvstatusid(Integer.parseInt(itemNum));
-//            entityManager.clear();
-//            entityManager.flush();
             //保存库存状态
-            invStatusRepository.saveAndFlush(invstatus);
+            invStatusRepository.save(invstatus);
         }
 
 
@@ -155,16 +162,21 @@ public class ImportItemToDataBase {
         invtrans.setSiteid(siteId);
         invTransRepository.save(invtrans);
 
+        entityManager.clear();
 
     }
 
 
-    public void startImport() {
-        try {
-            File file = ResourceUtils.getFile("classpath:" + "public/物资台帐.xlsx");
-            FileInputStream fileInputStream4 = new FileInputStream(file);
-            String[][] excels = loadImport(fileInputStream4, ExcelTypeConstant.XLSX, 1, 10);
+    /**
+     * 项目导入
+     */
 
+
+    public void startItemImport() {
+        try {
+            File file = ResourceUtils.getFile("classpath:" + "public/五河项目备品备件.xlsx");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            String[][] excels = loadImport(fileInputStream, ExcelTypeConstant.XLSX, 1, 10);
             if (!StringUtils.isEmpty(excels)) {
                 for (String[] rows : excels) {
                     String itemNum = rows[0];
@@ -174,7 +186,7 @@ public class ImportItemToDataBase {
                     String issueUnit = rows[4];
                     String siteId = "CNE340322F01";
                     if (StringUtils.hasText(itemNum)) {
-                        importItem(itemNum, description, modelNum, orderUnit, issueUnit, "W10001", siteId);
+                        importItem(itemNum, description, modelNum, orderUnit, issueUnit, "W10001", siteId, null);
                     } else {
                         break;
                     }
@@ -184,6 +196,54 @@ public class ImportItemToDataBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * 工器具导入
+     */
+
+    public void startToolsItemImport() {
+        try {
+            File file = ResourceUtils.getFile("classpath:" + "public/五河安全工器具.xlsx");
+            FileInputStream fileInputStream = new FileInputStream(file);
+            String[][] excels = loadImport(fileInputStream, ExcelTypeConstant.XLSX, 1, 10);
+            if (!StringUtils.isEmpty(excels)) {
+                for (String[] rows : excels) {
+                    String itemNum = rows[0];
+                    String description = rows[1];
+                    String modelNum = rows[2];
+                    String orderUnit = rows[3];
+                    String issueUnit = rows[4];
+                    String siteId = "CNE340322F01";
+                    if (StringUtils.hasText(itemNum)) {
+                        importItem(itemNum, description, modelNum, orderUnit, issueUnit, "W10001", siteId, ItemTypeConstant.TOOL);
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 删除所有的物资数据
+     */
+
+    public void deleteAll() {
+        itemOrgInfoRepository.deleteAllInBatch();
+        itemStatusRepository.deleteAllInBatch();
+        itemRepository.deleteAllInBatch();
+        itemStructRepository.deleteAllInBatch();
+        invBalancesRepository.deleteAllInBatch();
+        inventoryRepository.deleteAllInBatch();
+        invTransRepository.deleteAllInBatch();
+        invCostRepository.deleteAllInBatch();
+        invStatusRepository.deleteAllInBatch();
     }
 
 

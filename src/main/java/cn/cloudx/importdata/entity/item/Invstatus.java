@@ -15,7 +15,7 @@ public class Invstatus {
 
     @Id
     @SequenceGenerator(name = "invstatus", sequenceName = "invstatusseq", allocationSize = 1)
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invstatus")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "invstatus")
     private Integer invstatusid;
     private String itemnum;
     private String itemsetid = "ITEMSET";
