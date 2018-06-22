@@ -4,10 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author zhanghao
@@ -20,20 +17,22 @@ public class ImportItemToDataBaseTest {
     @Autowired
     private ImportItemToDataBase importItemToDataBase;
 
+
+    private String site1 = "CNE340322F01";
+    private String site2 = "CNE532327G01";
+    private String storeLoc1 = "W10001";
+    private String storeLoc2 = "W10002";
+
+
     @Test
     public void startItemImport() {
-        importItemToDataBase.startItemImport();
+        importItemToDataBase.startItemImport(site1, storeLoc1);
+        importItemToDataBase.startItemImport(site2, storeLoc2);
     }
 
-    @Commit
     @Test
     public void startToolsItemImport() {
-        deleteAll();
-        importItemToDataBase.startToolsItemImport();
-    }
-
-    @Test
-    public void deleteAll() {
-        importItemToDataBase.deleteAll();
+        importItemToDataBase.startToolsItemImport(site1, storeLoc1);
+        importItemToDataBase.startToolsItemImport(site2, storeLoc2);
     }
 }
