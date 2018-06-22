@@ -23,6 +23,7 @@ import static cn.cloudx.importdata.tools.parse.ParseExcel.loadImport;
  */
 @Component
 @Slf4j
+@SuppressWarnings("ALL")
 public class ImportItemToDataBase {
     private final ItemService itemService;
 
@@ -32,10 +33,20 @@ public class ImportItemToDataBase {
     }
 
 
+    /**
+     * 导入库存项目
+     *
+     * @param siteId   位置编号
+     * @param storeLoc 仓库区域
+     */
+
     public void startItemImport(String siteId, String storeLoc) {
         try {
+            //获取文件
             File file = ResourceUtils.getFile("classpath:" + "public/五河-物资-备品备件.xlsx");
+            //文件转换为文件流
             FileInputStream fileInputStream = new FileInputStream(file);
+            //将文件流转换为二维数组
             String[][] excels = loadImport(fileInputStream, ExcelTypeConstant.XLSX, 1, 10);
             if (!StringUtils.isEmpty(excels)) {
                 for (String[] rows : excels) {

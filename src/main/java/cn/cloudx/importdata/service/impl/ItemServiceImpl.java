@@ -42,29 +42,50 @@ public class ItemServiceImpl implements ItemService {
         this.invStatusRepository = invStatusRepository;
     }
 
+
+    /**
+     * 导入项目信息
+     *
+     * @param itemNum     物资编码
+     * @param description 物资描述
+     * @param sModelNum   规格型号
+     * @param orderUnit   订购计量单位
+     * @param issueUnit   发放计量单位
+     * @param location    仓库
+     * @param siteId      地点
+     * @param itemType    项目类别
+     */
     @Override
     public void importItem(String itemNum, String description, String sModelNum, String orderUnit, String issueUnit, String location, String siteId, String itemType) {
 
         //设置项目
         Item item = new Item();
+        //设置物资编码
         item.setItemnum(itemNum);
+        //设置描述
         item.setDescription(description);
+        //设置规格型号
         item.setSModelnum(sModelNum);
+        //设置订购单位
         item.setOrderunit(orderUnit);
+        //设置发放单温
         item.setIssueunit(issueUnit);
-
+        //如果为空的话，设置ItemType为默认值
         if (itemType != null) {
             item.setItemtype(itemType);
         }
 
         //保存项目
         Item save = itemRepository.save(item);
+        //输出导入成功的语句
         log.info("item{},{}导入成功", save.getItemnum(), save.getDescription());
 
 
         //设置项目状态
         Itemstatus itemstatus = new Itemstatus();
+        //设置物资编码
         itemstatus.setItemnum(itemNum);
+        //设置id
         itemstatus.setItemstatusid(itemStatusId++);
         //保存项目状态
         itemStatusRepository.save(itemstatus);
@@ -72,24 +93,36 @@ public class ItemServiceImpl implements ItemService {
 
         //设置项目组织信息
         Itemorginfo itemorginfo = new Itemorginfo();
+        //设置物资编码信息
         itemorginfo.setItemnum(itemNum);
         //保存项目组织信息
         itemOrgInfoRepository.save(itemorginfo);
 
 
-
-
-        /*
-         *设置 ItemStruct
-         */
-
+        //设置 ItemStruct
         Itemstruct itemstruct = new Itemstruct();
+        //设置物资编码
         itemstruct.setItemnum(itemNum);
+        //设置id
         itemstruct.setItemid(itemNum);
         itemStructRepository.save(itemstruct);
 
 
     }
+
+
+    /**
+     * 导入库存信息
+     *
+     * @param itemNum     物资编码
+     * @param description 物资描述
+     * @param sModelNum   规格型号
+     * @param orderUnit   订购计量单位
+     * @param issueUnit   发放计量单位
+     * @param location    仓库
+     * @param siteId      地点
+     * @param itemType    项目类别
+     */
 
     @Override
     public void importInv(String itemNum, String description, String sModelNum, String orderUnit, String issueUnit, String location, String siteId, String itemType) {
@@ -142,6 +175,11 @@ public class ItemServiceImpl implements ItemService {
         invTransRepository.save(invtrans);
     }
 
+
+    /**
+     * 删除所有的项目
+     */
+
     @Override
     public void deleteItemAll() {
         itemOrgInfoRepository.deleteAllInBatch();
@@ -150,6 +188,10 @@ public class ItemServiceImpl implements ItemService {
         itemStructRepository.deleteAllInBatch();
     }
 
+
+    /**
+     * 删除所有的库存信息
+     */
     @Override
     public void deleteInvAll() {
         invBalancesRepository.deleteAllInBatch();
