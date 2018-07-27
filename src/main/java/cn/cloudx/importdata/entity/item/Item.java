@@ -87,12 +87,10 @@ public class Item {
     private String sPicturenum;
     private String prsumrderqty;
 
-    private Integer islongterm = 0;
     private String unitcode;
     private String itemName;
     private String erpid;
     private String interfaceorgtype;
-    private Integer iserpitem = 0;
     private String zxbz;
     private String olditemnum;
 
@@ -107,10 +105,7 @@ public class Item {
     private String modelnum;
     private String tuhao;
     private String caizhi;
-    private Integer js = 0;
     private String mark;
-    private Integer changxie = 0;
-    private Integer cIsdc = 0;
     private Integer inventoryItemId;
     private String uomCode;
     private String uomName;

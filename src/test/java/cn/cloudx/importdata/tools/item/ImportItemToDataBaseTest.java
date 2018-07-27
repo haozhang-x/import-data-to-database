@@ -1,5 +1,6 @@
 package cn.cloudx.importdata.tools.item;
 
+import cn.cloudx.importdata.service.ItemService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +19,33 @@ public class ImportItemToDataBaseTest {
     @Autowired
     private ImportItemToDataBase importItemToDataBase;
 
+    @Autowired
+    private ItemService itemService;
 
-    private String site1 = "CNE340322F01";
-    private String site2 = "CNE532327G01";
-    private String storeLoc1 = "W10001";
-    private String storeLoc2 = "W10002";
+    //开始导入
+    @Test
+    @Commit
+    public void startItemImport() {
+        importItemToDataBase.startItemImport();
+    }
 
 
     @Test
     @Commit
-    public void startItemImport() {
-        importItemToDataBase.startItemImport(site1, storeLoc1);
-        importItemToDataBase.startItemImport(site2, storeLoc2);
+    public void startInvImport() {
+        importItemToDataBase.startInvImport();
     }
 
     @Test
-    public void startToolsItemImport() {
-        importItemToDataBase.startToolsItemImport(site1, storeLoc1);
-        importItemToDataBase.startToolsItemImport(site2, storeLoc2);
+    @Commit
+    public void deleteItemAll() {
+        itemService.deleteItemAll();
+    }
+
+
+    @Test
+    @Commit
+    public void deleteInvAll() {
+        itemService.deleteInvAll();
     }
 }

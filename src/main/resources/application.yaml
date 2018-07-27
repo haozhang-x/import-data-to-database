@@ -1,10 +1,10 @@
 spring:
   profiles:
-    active: local
+    active: dev
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
-    username: maximo
-    password: maximo
+    username: maximo_new
+    password: maximo_new
   jpa:
     show-sql: false
 server:

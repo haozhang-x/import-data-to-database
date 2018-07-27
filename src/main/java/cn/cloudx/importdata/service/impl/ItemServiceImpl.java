@@ -46,17 +46,18 @@ public class ItemServiceImpl implements ItemService {
     /**
      * 导入项目信息
      *
-     * @param itemNum     物资编码
-     * @param description 物资描述
-     * @param sModelNum   规格型号
-     * @param orderUnit   订购计量单位
-     * @param issueUnit   发放计量单位
-     * @param location    仓库
-     * @param siteId      地点
-     * @param itemType    项目类别
+     * @param itemNum          物资编码
+     * @param description      物资描述
+     * @param sModelNum        规格型号
+     * @param orderUnit        订购计量单位
+     * @param issueUnit        发放计量单位
+     * @param location         仓库
+     * @param siteId           地点
+     * @param itemType         项目类别
+     * @param classStructureId 分类编号
      */
     @Override
-    public void importItem(String itemNum, String description, String sModelNum, String orderUnit, String issueUnit, String location, String siteId, String itemType) {
+    public void importItem(String itemNum, String description, String sModelNum, String orderUnit, String issueUnit, String location, String siteId, String itemType, String classStructureId) {
 
         //设置项目
         Item item = new Item();
@@ -68,12 +69,16 @@ public class ItemServiceImpl implements ItemService {
         item.setSModelnum(sModelNum);
         //设置订购单位
         item.setOrderunit(orderUnit);
-        //设置发放单温
+        //设置发放单位
         item.setIssueunit(issueUnit);
+        //设置分类编号
+        item.setClassstructureid(classStructureId);
         //如果为空的话，设置ItemType为默认值
         if (itemType != null) {
             item.setItemtype(itemType);
         }
+
+        log.info("item info{},{}", item.getItemnum(), item.getDescription());
 
         //保存项目
         Item save = itemRepository.save(item);
@@ -85,8 +90,8 @@ public class ItemServiceImpl implements ItemService {
         Itemstatus itemstatus = new Itemstatus();
         //设置物资编码
         itemstatus.setItemnum(itemNum);
-        //设置id
-        itemstatus.setItemstatusid(itemStatusId++);
+//        //设置id
+//        itemstatus.setItemstatusid(itemStatusId++);
         //保存项目状态
         itemStatusRepository.save(itemstatus);
 
@@ -139,6 +144,7 @@ public class ItemServiceImpl implements ItemService {
         Invcost invcost = new Invcost();
         invcost.setItemnum(itemNum);
         invcost.setSiteid(siteId);
+        invcost.setLocation(location);
         invCostRepository.save(invcost);
 
 
@@ -161,7 +167,10 @@ public class ItemServiceImpl implements ItemService {
         inventory.setIssueunit(issueUnit);
         inventory.setSiteid(siteId);
         inventory.setLocation(location);
-        inventoryRepository.save(inventory);
+        Inventory save = inventoryRepository.save(inventory);
+        log.info("ITEM={}已导入库存", save.getItemnum());
+
+
 
 
 
@@ -200,4 +209,16 @@ public class ItemServiceImpl implements ItemService {
         invCostRepository.deleteAllInBatch();
         invStatusRepository.deleteAllInBatch();
     }
+
+    @Override
+    public Item findOneItem(String itemNum) {
+        return itemRepository.findByItemnum(itemNum);
+    }
+
+    @Override
+    public String findMaxItemNum(String classStructureId) {
+        return itemRepository.findMaxItemNum(classStructureId);
+    }
+
+
 }
